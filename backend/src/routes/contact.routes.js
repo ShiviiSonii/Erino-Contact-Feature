@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addContact,
   allContacts,
+  deleteContact,
   updateContact,
 } from "../controllers/contact.controllers.js";
 
@@ -13,8 +14,6 @@ router.get("/", allContacts);
 
 router.patch("/:id", updateContact);
 
-router.delete("/:id", (req, res) => {
-  console.log("Delete contact");
-});
+router.delete("/:id", deleteContact);
 
 export default router;

@@ -85,3 +85,19 @@ export const updateContact = async (req, res) => {
     return res.status(500).send("Error while updating contact");
   }
 };
+
+export const deleteContact = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const contact = await Contact.findByIdAndDelete(id);
+
+    if (!contact) {
+      return res.status(404).send("Contact not found");
+    }
+
+    return res.status(200).json({ message: "Contact deleted successfully!" });
+  } catch (error) {
+    return res.status(500).send("Error while deleting contact");
+  }
+};
