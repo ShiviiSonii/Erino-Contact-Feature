@@ -45,3 +45,19 @@ export const addContact = async (req, res) => {
     .status(201)
     .json({ contact, message: "Contact added successfully!" });
 };
+
+export const allContacts = async (req, res) => {
+  try {
+    const contacts = await Contact.find({});
+
+    if (contacts.length === 0) {
+      return res.status(404).send("No contacts found");
+    }
+
+    return res
+      .status(200)
+      .json({ contacts, message: "Contacts retrieved successfully!" });
+  } catch (error) {
+    return res.status(500).send("Error retrieving contacts");
+  }
+};
