@@ -61,3 +61,27 @@ export const allContacts = async (req, res) => {
     return res.status(500).send("Error retrieving contacts");
   }
 };
+
+export const updateContact = async (req, res) => {
+  const { id } = req.params;
+  const { first_name, last_name, email, phone_number, company, job_title } =
+    req.body;
+
+  try {
+    const contact = await Contact.findByIdAndUpdate(
+      id,
+      { first_name, last_name, email, phone_number, company, job_title },
+      { new: true }
+    );
+
+    if (!contact) {
+      return res.status(404).send("Contact not found");
+    }
+
+    return res
+      .status(200)
+      .json({ contact, message: "Contact updated successfully!" });
+  } catch (error) {
+    return res.status(500).send("Error while updating contact");
+  }
+};
