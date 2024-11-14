@@ -4,7 +4,6 @@ export const addContact = async (req, res) => {
   const { first_name, last_name, email, phone_number, company, job_title } =
     req.body;
 
-  // Check for required fields
   if (
     !first_name ||
     !last_name ||
@@ -16,7 +15,6 @@ export const addContact = async (req, res) => {
     return res.status(400).send("All fields are required!");
   }
 
-  // Check if the contact already exists
   const existedContact = await Contact.findOne({
     $or: [{ email }, { phone_number }],
   });
@@ -25,7 +23,6 @@ export const addContact = async (req, res) => {
     return res.status(409).send("Contact already exists!");
   }
 
-  // Create a new contact
   const contact = await Contact.create({
     first_name,
     last_name,
