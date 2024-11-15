@@ -11,6 +11,7 @@ import {
   ListItemText,
   Divider,
   IconButton,
+  Button,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import EnhancedTable from './Table'; 
@@ -18,10 +19,10 @@ import EnhancedTable from './Table';
 const drawerWidth = 240;
 
 const DashboardLayout = () => {
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      {/* AppBar for the top navigation */}
       <AppBar
         position="fixed"
         sx={{
@@ -44,7 +45,6 @@ const DashboardLayout = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Permanent Drawer for side navigation */}
       <Drawer
         variant="permanent"
         sx={{
@@ -67,21 +67,19 @@ const DashboardLayout = () => {
         </List>
       </Drawer>
 
-      {/* Main Content Area */}
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           bgcolor: 'background.default',
           p: 3,
-          // ml: `${drawerWidth}px`, // Add margin to accommodate drawer
         }}
       >
         <Toolbar />
+        {/* <Button variant='outlined'>Add Contact</Button> */}
         <Typography variant="h4" gutterBottom>
           Contacts Table
         </Typography>
-        {/* Render the table */}
         <EnhancedTable />
       </Box>
     </Box>
