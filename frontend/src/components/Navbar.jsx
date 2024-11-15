@@ -10,9 +10,10 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  IconButton,
 } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import EnhancedTable from './Table'; 
 
 const drawerWidth = 240;
 
@@ -20,16 +21,19 @@ const DashboardLayout = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+      {/* AppBar for the top navigation */}
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
       >
         <Toolbar>
-        <IconButton
+          <IconButton
             size="large"
             edge="start"
             color="inherit"
-            aria-label="open drawer"
+            aria-label="menu"
             sx={{ mr: 2 }}
           >
             <MenuIcon />
@@ -39,6 +43,8 @@ const DashboardLayout = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+
+      {/* Permanent Drawer for side navigation */}
       <Drawer
         variant="permanent"
         sx={{
@@ -60,6 +66,24 @@ const DashboardLayout = () => {
           ))}
         </List>
       </Drawer>
+
+      {/* Main Content Area */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          bgcolor: 'background.default',
+          p: 3,
+          // ml: `${drawerWidth}px`, // Add margin to accommodate drawer
+        }}
+      >
+        <Toolbar />
+        <Typography variant="h4" gutterBottom>
+          Contacts Table
+        </Typography>
+        {/* Render the table */}
+        <EnhancedTable />
+      </Box>
     </Box>
   );
 };
