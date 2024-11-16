@@ -1,7 +1,6 @@
 import Navbar from './components/Navbar'
 import { Box, Toolbar } from '@mui/material';
 import ContactTable from './components/ContactTable';
-import EnhancedTable from './components/Table';
 
 function App() {
   return (

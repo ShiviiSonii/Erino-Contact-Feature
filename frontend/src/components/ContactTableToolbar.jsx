@@ -4,7 +4,7 @@ import { Toolbar, Typography, IconButton, Tooltip } from '@mui/material';
 import { Delete as DeleteIcon, Edit } from '@mui/icons-material';
 import BasicModal from './Modal';
 
-function ContactTableToolbar({ numSelected, handleDelete }) {
+function ContactTableToolbar({ numSelected, handleDelete, handleEditContact }) {
   return (
     <Toolbar
       sx={[
@@ -32,7 +32,7 @@ function ContactTableToolbar({ numSelected, handleDelete }) {
       {numSelected > 0 ? (
         <>
           <Tooltip title="Edit">
-            <IconButton>
+            <IconButton onClick={handleEditContact}>
               <Edit />
             </IconButton>
           </Tooltip>
@@ -51,7 +51,8 @@ function ContactTableToolbar({ numSelected, handleDelete }) {
 
 ContactTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  handleDelete: PropTypes.func.isRequired,  
+  handleDelete: PropTypes.func.isRequired,
+  handleEditContact: PropTypes.func.isRequired,
 };
 
 export default ContactTableToolbar;
