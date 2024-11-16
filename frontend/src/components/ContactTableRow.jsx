@@ -3,9 +3,20 @@ import { TableRow, TableCell, Checkbox } from '@mui/material';
 
 function ContactTableRow({ row, isItemSelected, handleClick, labelId }) {
   return (
-    <TableRow hover onClick={(event) => handleClick(event, row.id)} role="checkbox" aria-checked={isItemSelected} tabIndex={-1} key={row.id} selected={isItemSelected}>
+    <TableRow
+      hover
+      onClick={(event) => handleClick(event, row)} 
+      role="checkbox"
+      aria-checked={isItemSelected}
+      tabIndex={-1}
+      key={`${row.first_name}-${row.last_name}-${row.email}`} 
+      selected={isItemSelected} 
+    >
       <TableCell padding="checkbox">
-        <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
+        <Checkbox
+          checked={isItemSelected} 
+          inputProps={{ 'aria-labelledby': labelId }}
+        />
       </TableCell>
       <TableCell component="th" id={labelId} scope="row" padding="none">
         {row.first_name}

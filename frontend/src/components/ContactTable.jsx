@@ -20,38 +20,36 @@ function ContactTable() {
     setOrderBy(property);
   };
 
-
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
+      const newSelected = rows.map((n) => `${n.first_name}-${n.last_name}-${n.email}`);
+      setSelected(newSelected);  
+    } else {
+      setSelected([]);  
     }
-    setSelected([]);
   };
 
- 
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
+  const handleClick = (event, row) => {
+    const rowId = `${row.first_name}-${row.last_name}-${row.email}`;
+
+    const selectedIndex = selected.indexOf(rowId);  
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = [...selected, rowId];
     } else {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelected = selected.filter((selectedId) => selectedId !== rowId);
     }
+
     setSelected(newSelected);
   };
 
- 
   const handleChangePage = (event, newPage) => setPage(newPage);
-
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
 
   const sortedRows = rows.sort((a, b) => {
     if (orderBy === 'first_name') {
@@ -75,6 +73,9 @@ function ContactTable() {
     return 0;
   });
 
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   const visibleRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
@@ -95,7 +96,8 @@ function ContactTable() {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const isItemSelected = selected.indexOf(row.id) !== -1;
+                const rowId = `${row.first_name}-${row.last_name}-${row.email}`; 
+                const isItemSelected = selected.indexOf(rowId) !== -1;
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return <ContactTableRow row={row} isItemSelected={isItemSelected} handleClick={handleClick} labelId={labelId} />;
               })}
