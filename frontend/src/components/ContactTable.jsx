@@ -4,6 +4,7 @@ import ContactTableHead from './ContactTableHead';
 import ContactTableToolbar from './ContactTableToolbar';
 import ContactTableRow from './ContactTableRow';
 import { useFetchContacts } from '../hooks/useFetchContacts';
+import { useDeleteContact } from '../hooks/useDeleteContact';
 
 function ContactTable() {
   const [order, setOrder] = useState('asc');
@@ -13,6 +14,7 @@ function ContactTable() {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const rows = useFetchContacts();
+  const { status, deleteContact } = useDeleteContact();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -22,17 +24,16 @@ function ContactTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => `${n.first_name}-${n.last_name}-${n.email}`);
-      setSelected(newSelected);  
+      const newSelected = rows.map((n) => n.id);  
+      setSelected(newSelected);
     } else {
-      setSelected([]);  
+      setSelected([]);
     }
   };
 
   const handleClick = (event, row) => {
-    const rowId = `${row.first_name}-${row.last_name}-${row.email}`;
-
-    const selectedIndex = selected.indexOf(rowId);  
+    const rowId = row.id; 
+    const selectedIndex = selected.indexOf(rowId);
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -49,6 +50,13 @@ function ContactTable() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleDelete = () => {
+    selected.forEach((contactId) => {
+      deleteContact(contactId);  
+    });
+    setSelected([]);  
   };
 
   const sortedRows = rows.sort((a, b) => {
@@ -83,7 +91,11 @@ function ContactTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <ContactTableToolbar numSelected={selected.length} />
+        <ContactTableToolbar 
+          numSelected={selected.length} 
+          selectedContactIds={selected}  
+          handleDelete={handleDelete}  
+        />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'}>
             <ContactTableHead
@@ -96,7 +108,7 @@ function ContactTable() {
             />
             <TableBody>
               {visibleRows.map((row, index) => {
-                const rowId = `${row.first_name}-${row.last_name}-${row.email}`; 
+                const rowId = row.id;  // Use 'id' here
                 const isItemSelected = selected.indexOf(rowId) !== -1;
                 const labelId = `enhanced-table-checkbox-${index}`;
                 return <ContactTableRow row={row} isItemSelected={isItemSelected} handleClick={handleClick} labelId={labelId} />;

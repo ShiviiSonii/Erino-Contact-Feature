@@ -1,32 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Toolbar, Typography, IconButton, Tooltip} from '@mui/material';
-import { Delete as DeleteIcon} from '@mui/icons-material';
-import { alpha } from '@mui/material/styles';
+import { Toolbar, Typography, IconButton, Tooltip } from '@mui/material';
+import { Delete as DeleteIcon, Edit } from '@mui/icons-material';
 import BasicModal from './Modal';
 
-function ContactTableToolbar({ numSelected }) {
+function ContactTableToolbar({ numSelected, handleDelete }) {
   return (
-    <Toolbar sx={[{ pl: { sm: 2 }, pr: { xs: 1, sm: 1 } }, numSelected > 0 && { bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity) }]}>
+    <Toolbar
+      sx={[
+        { pl: { sm: 2 }, pr: { xs: 1, sm: 1 } },
+        numSelected > 0 && {
+          bgcolor: (theme) => theme.palette.action.activatedOpacity,
+        },
+      ]}
+    >
       {numSelected > 0 ? (
-        <Typography sx={{ flex: '1 1 100%' }} color="inherit" variant="subtitle1" component="div">
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
+        <Typography sx={{ flex: '1 1 100%' }} variant="h6" component="div">
           Contacts
         </Typography>
       )}
+
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
         <>
-        <BasicModal/>
-      </>
+          <Tooltip title="Edit">
+            <IconButton>
+              <Edit />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </>
+      ) : (
+        <BasicModal />
       )}
     </Toolbar>
   );
@@ -34,6 +51,7 @@ function ContactTableToolbar({ numSelected }) {
 
 ContactTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  handleDelete: PropTypes.func.isRequired,  
 };
 
 export default ContactTableToolbar;

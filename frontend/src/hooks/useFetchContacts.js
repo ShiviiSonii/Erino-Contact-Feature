@@ -13,6 +13,7 @@ export function useFetchContacts() {
 
         if (Array.isArray(data.contacts)) {
           const mappedData = data.contacts.map((item) => ({
+            id: item._id,
             first_name: item.first_name,
             last_name: item.last_name,
             email: item.email,
@@ -20,6 +21,7 @@ export function useFetchContacts() {
             company: item.company,
             job_title: item.job_title,
           }));
+          console.log(mappedData);
           setRows(mappedData);
         } else {
           console.error("API response is not an array:", data);
@@ -28,7 +30,7 @@ export function useFetchContacts() {
         console.error("Error fetching data:", error);
       }
     })();
-  }, []);
+  }, [rows]);
 
   return rows;
 }
