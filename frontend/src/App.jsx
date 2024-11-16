@@ -1,19 +1,23 @@
 import Navbar from './components/Navbar'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import { Box, Toolbar } from '@mui/material';
+import ContactTable from './components/ContactTable';
 
 function App() {
-  
   return (
-    <ThemeProvider theme={darkTheme}>
+      <>
       <Navbar/>
-    </ThemeProvider>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          bgcolor: 'background.default',
+          p: 3,
+        }}
+      >
+        <Toolbar />
+        <ContactTable />
+      </Box>
+      </>
   )
 }
 

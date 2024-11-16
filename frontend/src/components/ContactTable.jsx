@@ -1,17 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Box, Paper, TableContainer, Table, TableBody, TablePagination } from '@mui/material';
-import EnhancedTableHead from './EnhancedTableHead';
-import EnhancedTableToolbar from './EnhancedTableToolbar';
-import EnhancedTableRow from './EnhancedTableRow';
+import ContactTableHead from './ContactTableHead';
+import ContactTableToolbar from './ContactTableToolbar';
+import ContactTableRow from './ContactTableRow';
 import { useFetchContacts } from '../hooks/useFetchContacts';
 
-function EnhancedTable() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('first_name');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+function ContactTable() {
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('first_name');
+  const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const rows = useFetchContacts();
 
   const handleRequestSort = (event, property) => {
@@ -55,10 +55,10 @@ function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <ContactTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'}>
-            <EnhancedTableHead
+            <ContactTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
@@ -70,7 +70,7 @@ function EnhancedTable() {
               {visibleRows.map((row, index) => {
                 const isItemSelected = selected.indexOf(row.id) !== -1;
                 const labelId = `enhanced-table-checkbox-${index}`;
-                return <EnhancedTableRow row={row} isItemSelected={isItemSelected} handleClick={handleClick} labelId={labelId} />;
+                return <ContactTableRow row={row} isItemSelected={isItemSelected} handleClick={handleClick} labelId={labelId} />;
               })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
@@ -81,7 +81,7 @@ function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10, 15, 25]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
@@ -94,4 +94,4 @@ function EnhancedTable() {
   );
 }
 
-export default EnhancedTable;
+export default ContactTable;

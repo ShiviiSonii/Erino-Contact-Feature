@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Toolbar, Typography, IconButton, Tooltip } from '@mui/material';
-import { Delete as DeleteIcon, FilterList as FilterListIcon } from '@mui/icons-material';
+import { Toolbar, Typography, IconButton, Tooltip} from '@mui/material';
+import { Delete as DeleteIcon} from '@mui/icons-material';
 import { alpha } from '@mui/material/styles';
+import BasicModal from './Modal';
 
-function EnhancedTableToolbar({ numSelected }) {
+function ContactTableToolbar({ numSelected }) {
   return (
     <Toolbar sx={[{ pl: { sm: 2 }, pr: { xs: 1, sm: 1 } }, numSelected > 0 && { bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity) }]}>
       {numSelected > 0 ? (
@@ -23,18 +24,16 @@ function EnhancedTableToolbar({ numSelected }) {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+        <BasicModal/>
+      </>
       )}
     </Toolbar>
   );
 }
 
-EnhancedTableToolbar.propTypes = {
+ContactTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default EnhancedTableToolbar;
+export default ContactTableToolbar;

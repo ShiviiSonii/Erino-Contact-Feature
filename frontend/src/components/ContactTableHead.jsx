@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TableHead, TableRow, TableCell, TableSortLabel, Box, Checkbox } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
-function EnhancedTableHead({ order, orderBy, onRequestSort, numSelected, rowCount, onSelectAllClick }) {
+function ContactTableHead({ order, orderBy, onRequestSort, numSelected, rowCount, onSelectAllClick }) {
   const headCells = [
     { id: 'first_name', numeric: false, disablePadding: true, label: 'First Name' },
     { id: 'last_name', numeric: false, disablePadding: false, label: 'Last Name' },
@@ -48,7 +48,7 @@ function EnhancedTableHead({ order, orderBy, onRequestSort, numSelected, rowCoun
   );
 }
 
-EnhancedTableHead.propTypes = {
+ContactTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -57,4 +57,4 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default EnhancedTableHead;
+export default ContactTableHead;

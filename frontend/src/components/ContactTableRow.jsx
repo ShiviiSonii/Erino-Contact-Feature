@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableRow, TableCell, Checkbox } from '@mui/material';
 
-function EnhancedTableRow({ row, isItemSelected, handleClick, labelId }) {
+function ContactTableRow({ row, isItemSelected, handleClick, labelId }) {
   return (
     <TableRow hover onClick={(event) => handleClick(event, row.id)} role="checkbox" aria-checked={isItemSelected} tabIndex={-1} key={row.id} selected={isItemSelected}>
       <TableCell padding="checkbox">
@@ -19,4 +19,4 @@ function EnhancedTableRow({ row, isItemSelected, handleClick, labelId }) {
   );
 }
 
-export default EnhancedTableRow;
+export default ContactTableRow;
