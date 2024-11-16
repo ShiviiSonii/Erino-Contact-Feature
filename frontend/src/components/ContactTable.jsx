@@ -12,7 +12,7 @@ function ContactTable() {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(8);
   const rows = useFetchContacts();
   const { status, deleteContact } = useDeleteContact();
 
@@ -122,7 +122,7 @@ function ContactTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 15, 25]}
+          rowsPerPageOptions={[8, 15, 25]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

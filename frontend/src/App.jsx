@@ -5,7 +5,6 @@ import ContactTable from './components/ContactTable';
 function App() {
   return (
       <>
-      <Navbar/>
       <Box
         component="main"
         sx={{
@@ -14,6 +13,7 @@ function App() {
           p: 3,
         }}
       >
+        <Navbar/>
         <Toolbar />
         <ContactTable />
         {/* <EnhancedTable/> */}
