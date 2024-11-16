@@ -4,6 +4,7 @@ import { TableHead, TableRow, TableCell, TableSortLabel, Box, Checkbox } from '@
 import { visuallyHidden } from '@mui/utils';
 
 function ContactTableHead({ order, orderBy, onRequestSort, numSelected, rowCount, onSelectAllClick }) {
+  
   const headCells = [
     { id: 'first_name', numeric: false, disablePadding: true, label: 'First Name' },
     { id: 'last_name', numeric: false, disablePadding: false, label: 'Last Name' },
